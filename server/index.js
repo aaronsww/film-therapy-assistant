@@ -79,9 +79,9 @@ app.post("/api/recommend/help", async (req, res) => {
   let prompt = "";
 
   if (story)
-    prompt = `Recommend me 5 films based on this personal story: ${story}. Reply with just the film titles seperated by a comma and nothing else.`;
+    prompt = `Recommend me 5 films based on this personal experience of mine: ${story}. Reply with just the film titles seperated by a comma and nothing else.`;
   else if (mood) {
-    prompt = `I feel ${mood}. Recommend me 5 films that help me copw with being ${mood}. Reply with just the film titles seperated by a comma.`;
+    prompt = `I feel ${mood}. Recommend me 5 films that help me cope with being ${mood}. Reply with just the film titles seperated by a comma.`;
     console.log("Moods:", mood);
   }
   try {
