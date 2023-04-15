@@ -4,6 +4,7 @@ import axios from "axios";
 import Card from "../components/Card";
 
 function App() {
+  const [toggle, setToggle] = useState();
   const [story, setStory] = useState("");
   const [mood, setMood] = useState("");
   const [setting, setSetting] = useState("");
@@ -16,20 +17,44 @@ function App() {
     event.preventDefault();
     console.log(story);
     setFilms([]);
-    try {
-      const response = await axios.post("http://localhost:5000/api/recommend", {
-        story,
-        mood,
-        setting,
-      });
-      console.log(response);
-      setFilms((prevFilms) => [
-        ...prevFilms,
-        ...response.data.map((data) => data.title),
-      ]);
-      setMood("");
-    } catch (error) {
-      console.error(error);
+    if (toggle) {
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/recommend",
+          {
+            story,
+            mood,
+            setting,
+          }
+        );
+        console.log(response);
+        setFilms((prevFilms) => [
+          ...prevFilms,
+          ...response.data.map((data) => data.title),
+        ]);
+        setMood("");
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/recommend/help",
+          {
+            story,
+            mood,
+            setting,
+          }
+        );
+        console.log(response);
+        setFilms((prevFilms) => [
+          ...prevFilms,
+          ...response.data.map((data) => data.title),
+        ]);
+        setMood("");
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -41,6 +66,8 @@ function App() {
 
   return (
     <div className="App">
+      {!toggle && <button onClick={() => setToggle(true)}>RouteOne</button>}
+      {toggle && <button onClick={() => setToggle(false)}>RouteTwo</button>}
       <form action="submit">
         <input
           placeholder="How are you feeling?"
@@ -61,17 +88,21 @@ function App() {
             {emotion}
           </button>
         ))}
-        <h3>Setting:</h3>
-        {specifics.map((specific) => (
-          <button
-            style={setting === specific ? divStyle : null}
-            onClick={() => {
-              setSetting(specific);
-            }}
-          >
-            {specific}
-          </button>
-        ))}
+        {!toggle && (
+          <div>
+            <h3>Setting:</h3>
+            {specifics.map((specific) => (
+              <button
+                style={setting === specific ? divStyle : null}
+                onClick={() => {
+                  setSetting(specific);
+                }}
+              >
+                {specific}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
       {films.map((film) => (
         <Card film={film} />
