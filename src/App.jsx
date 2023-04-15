@@ -5,6 +5,7 @@ import Card from "../components/Card";
 
 function App() {
   const [mood, setMood] = useState("");
+  const [setting, setSetting] = useState("");
   const [films, setFilms] = useState([]);
 
   const emotions = ["lonely", "serenity", "grief"];
@@ -13,10 +14,12 @@ function App() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(mood);
+    console.log(setting);
     setFilms([]);
     try {
       const response = await axios.post("http://localhost:5000/api/recommend", {
         mood,
+        setting,
       });
       console.log(response);
       setFilms((prevFilms) => [
@@ -34,7 +37,7 @@ function App() {
         <input
           placeholder="How are you feeling?"
           type="text"
-          value={mood}
+          value={[mood, setting]}
           onChange={(e) => setMood(e.target.value)}
           required
         />
@@ -45,9 +48,15 @@ function App() {
         {emotions.map((emotion) => (
           <button onClick={() => setMood(emotion)}>{emotion}</button>
         ))}
-        <h3>Specifics:</h3>
+        <h3>Setting:</h3>
         {specifics.map((specific) => (
-          <button onClick={() => setMood(specific)}>{specific}</button>
+          <button
+            onClick={() => {
+              setSetting(specific);
+            }}
+          >
+            {specific}
+          </button>
         ))}
       </div>
       {films.map((film) => (

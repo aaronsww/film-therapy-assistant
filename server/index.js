@@ -29,21 +29,30 @@ const Movie = mongoose.model("Movie", movieSchema);
 
 app.post("/api/recommend", async (req, res) => {
   console.log("Received POST request");
-  try {
-    const { mood } = req.body;
+  const { mood } = req.body;
+  const { setting } = req.body;
+  let prompt = "";
 
+  if (mood && setting) {
+    prompt = `I feel ${mood}. Recommend me 5 films with a ${setting} setting. Reply with just the film titles seperated by a comma.`;
+    console.log("it worked");
+  } else if (mood)
+    prompt = `I feel ${mood}. Recommend me 5 films. Reply with just the film titles seperated by a comma.`;
+  else if (setting)
+    prompt = `Recommend me 5 films with a ${setting} setting. Reply with just the film titles seperated by a comma.`;
+  try {
     await openai
       .createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [
           {
             role: "user",
-            content: `I feel ${mood}. Recommend me 5 films. Reply with just the film titles seperated by a comma.`,
+            content: prompt,
           },
         ],
       })
       .then(async (rez) => {
-        console.log(rez.data.choices[0].message.content);
+        // console.log(rez.data.choices[0].message.content);
         const response = rez.data.choices[0].message.content.split(", ");
         await Movie.deleteMany({});
         const savedRecommendations = await Movie.create(
@@ -64,19 +73,3 @@ app.get("/api/recommendations", async (req, res) => {
 });
 
 app.listen(5000, () => console.log("Listening on port 5000"));
-
-// const response = await openai.completions.create({
-//   model: "text-davinci-002",
-//   prompt: `I am feeling ${mood}. Recommend 5 movies for me.`,
-//   maxTokens: 256,
-//   n: 5,
-//   stop: ["\n"],
-// });
-
-// const response = await createChatCompletion({
-//     model: "text-davinci-002",
-//     prompt: `I am feeling ${mood}. Recommend 5 movies for me.`,
-//     maxTokens: 256,
-//     n: 5,
-//     stop: ["\n"],
-//   });
