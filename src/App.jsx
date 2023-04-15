@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import Card from "../components/Card";
+import { HeartSwitch } from "@anatoliygatt/heart-switch";
 
 function App() {
   const [toggle, setToggle] = useState();
@@ -66,8 +67,21 @@ function App() {
 
   return (
     <div className="App">
-      {!toggle && <button onClick={() => setToggle(true)}>RouteOne</button>}
-      {toggle && <button onClick={() => setToggle(false)}>RouteTwo</button>}
+      
+      <div className="heart">
+        <HeartSwitch
+          size="md"
+          inactiveTrackFillColor="#cffafe"
+          inactiveTrackStrokeColor="#22d3ee"
+          activeTrackFillColor="#06b6d4"
+          activeTrackStrokeColor="#0891b2"
+          inactiveThumbColor="#ecfeff"
+          activeThumbColor="#FFC0CB"
+          onChange={() => {
+            setToggle((toggle) => !toggle);
+          }}
+        />
+      </div>
       <form action="submit">
         <input
           placeholder="How are you feeling?"
