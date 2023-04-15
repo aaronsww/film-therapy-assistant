@@ -36,7 +36,7 @@ app.post("/api/recommend", async (req, res) => {
   let prompt = "";
 
   if (story)
-    prompt = `Recommend me 5 films based on this personal story: ${story}. Reply with just the film titles seperated by a comma and nothing else  .`;
+    prompt = `Recommend me 5 films based on this personal story: ${story}. Reply with just the film titles seperated by a comma and nothing else.`;
   else if (mood && setting) {
     prompt = `I feel ${mood}. Recommend me 5 films with a ${setting} setting. Reply with just the film titles seperated by a comma.`;
     console.log("it worked");
@@ -45,6 +45,45 @@ app.post("/api/recommend", async (req, res) => {
     console.log("hye", mood);
   } else if (setting)
     prompt = `Recommend me 5 films with a ${setting} setting. Reply with just the film titles seperated by a comma.`;
+  try {
+    await openai
+      .createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+      })
+      .then(async (rez) => {
+        // console.log(rez.data.choices[0].message.content);
+        const response = rez.data.choices[0].message.content.split(", ");
+        await Movie.deleteMany({});
+        const savedRecommendations = await Movie.create(
+          response.map((title) => ({ title }))
+        );
+        res.status(200).send(savedRecommendations);
+      });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+app.post("/api/recommend/help", async (req, res) => {
+  console.log("Received POST request");
+  const { story } = req.body;
+  const { mood } = req.body;
+
+  let prompt = "";
+
+  if (story)
+    prompt = `Recommend me 5 films based on this personal story: ${story}. Reply with just the film titles seperated by a comma and nothing else.`;
+  else if (mood) {
+    prompt = `I feel ${mood}. Recommend me 5 films that help me copw with being ${mood}. Reply with just the film titles seperated by a comma.`;
+    console.log("Moods:", mood);
+  }
   try {
     await openai
       .createChatCompletion({
