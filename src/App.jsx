@@ -8,6 +8,7 @@ function App() {
   const [films, setFilms] = useState([]);
 
   const handleSubmit = async (event) => {
+    setFilms([]);
     event.preventDefault();
     try {
       const response = await axios.post("http://localhost:5000/api/recommend", {
