@@ -45,6 +45,7 @@ app.post("/api/recommend", async (req, res) => {
       .then(async (rez) => {
         console.log(rez.data.choices[0].message.content);
         const response = rez.data.choices[0].message.content.split(", ");
+        await Movie.deleteMany({});
         const savedRecommendations = await Movie.create(
           response.map((title) => ({ title }))
         );
