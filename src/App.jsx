@@ -26,9 +26,16 @@ function App() {
         ...prevFilms,
         ...response.data.map((data) => data.title),
       ]);
+      setMood("");
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const divStyle = {
+    backgroundColor: "blue",
+    color: "white",
+    padding: "10px",
   };
 
   return (
@@ -37,8 +44,8 @@ function App() {
         <input
           placeholder="How are you feeling?"
           type="text"
-          value={[mood, setting]}
-          onChange={(e) => setMood(e.target.value)}
+          value={mood}
+          onChange={(e) => setMood(mood + "," + e.target.value)}
           required
         />
         <button onClick={handleSubmit}>Send</button>
@@ -46,11 +53,17 @@ function App() {
       <div>
         <h3>Emotions:</h3>
         {emotions.map((emotion) => (
-          <button onClick={() => setMood(emotion)}>{emotion}</button>
+          <button
+            style={mood.includes(emotion) ? divStyle : null}
+            onClick={() => setMood(mood + "," + emotion)}
+          >
+            {emotion}
+          </button>
         ))}
         <h3>Setting:</h3>
         {specifics.map((specific) => (
           <button
+            style={setting === specific ? divStyle : null}
             onClick={() => {
               setSetting(specific);
             }}
