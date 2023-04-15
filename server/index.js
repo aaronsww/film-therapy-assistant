@@ -29,16 +29,21 @@ const Movie = mongoose.model("Movie", movieSchema);
 
 app.post("/api/recommend", async (req, res) => {
   console.log("Received POST request");
+  const { story } = req.body;
   const { mood } = req.body;
   const { setting } = req.body;
+
   let prompt = "";
 
-  if (mood && setting) {
+  if (story)
+    prompt = `Recommend me 5 films based on this personal story: ${story}. Reply with just the film titles seperated by a comma and nothing else  .`;
+  else if (mood && setting) {
     prompt = `I feel ${mood}. Recommend me 5 films with a ${setting} setting. Reply with just the film titles seperated by a comma.`;
     console.log("it worked");
-  } else if (mood)
+  } else if (mood) {
     prompt = `I feel ${mood}. Recommend me 5 films. Reply with just the film titles seperated by a comma.`;
-  else if (setting)
+    console.log("hye", mood);
+  } else if (setting)
     prompt = `Recommend me 5 films with a ${setting} setting. Reply with just the film titles seperated by a comma.`;
   try {
     await openai

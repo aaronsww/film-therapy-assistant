@@ -4,6 +4,7 @@ import axios from "axios";
 import Card from "../components/Card";
 
 function App() {
+  const [story, setStory] = useState("");
   const [mood, setMood] = useState("");
   const [setting, setSetting] = useState("");
   const [films, setFilms] = useState([]);
@@ -13,11 +14,11 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(mood);
-    console.log(setting);
+    console.log(story);
     setFilms([]);
     try {
       const response = await axios.post("http://localhost:5000/api/recommend", {
+        story,
         mood,
         setting,
       });
@@ -44,8 +45,8 @@ function App() {
         <input
           placeholder="How are you feeling?"
           type="text"
-          value={mood}
-          onChange={(e) => setMood(mood + "," + e.target.value)}
+          value={story}
+          onChange={(e) => setStory(e.target.value)}
           required
         />
         <button onClick={handleSubmit}>Send</button>
