@@ -41,6 +41,22 @@
   color: #888;
 }
 
+.quoteMark{
+  font-size: 44px;
+  font-family: 'Coustard', serif;
+}
+.quote>div{
+  font-size: 44px;
+  font-family: 'Playfair Display', serif;
+  margin-top: -5%;
+}
+.quote>p{
+  font-size: 22px;
+  font-family: 'Playfair Display', serif;
+  margin-left: 70%;
+  margin-top: -0.2%;
+}
+
 .heart{
   display: flex;
   justify-content: center;

@@ -67,7 +67,11 @@ function App() {
 
   return (
     <div className="App">
-      
+      <div className="quote">
+        <span className="quoteMark">"</span>
+        <div>In its truest form, cinema is therapy.</div>
+        <p>- Nadine Labaki</p>
+      </div>
       <div className="heart">
         <HeartSwitch
           size="md"
