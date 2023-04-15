@@ -60,9 +60,9 @@ function App() {
   };
 
   const divStyle = {
-    backgroundColor: "blue",
-    color: "white",
-    padding: "10px",
+    backgorundColor: "#dee2e6",
+    borderBottom: "5px solid #adb5bd",
+    color: "black",
   };
 
   return (
@@ -86,42 +86,68 @@ function App() {
           }}
         />
       </div>
-      <form action="submit">
-        <input
-          placeholder="How are you feeling?"
+      {/* <form action="submit">
+        <textarea
+          className="storyIp"
+          // placeholder="How are you feeling?"
           type="text"
           value={story}
           onChange={(e) => setStory(e.target.value)}
           required
         />
-        <button onClick={handleSubmit}>Send</button>
-      </form>
+      </form> */}
       <div>
-        <h3>Emotions:</h3>
-        {emotions.map((emotion) => (
-          <button
-            style={mood.includes(emotion) ? divStyle : null}
-            onClick={() => setMood(mood + "," + emotion)}
-          >
-            {emotion}
-          </button>
-        ))}
-        {!toggle && (
+        <div className="ipSection">
+          <h3>Emotion(s)</h3>
           <div>
-            <h3>Setting:</h3>
-            {specifics.map((specific) => (
+            {emotions.map((emotion, index) => (
               <button
-                style={setting === specific ? divStyle : null}
-                onClick={() => {
-                  setSetting(specific);
+                className="tab"
+                style={{
+                  borderRadius:
+                    index === 0
+                      ? "4px 0 0 4px"
+                      : index === emotions.length - 1
+                      ? "0 4px 4px 0"
+                      : "",
+                  ...(mood.includes(emotion) ? divStyle : {}),
                 }}
+                onClick={() => setMood(mood + "," + emotion)}
               >
-                {specific}
+                {emotion}
               </button>
             ))}
           </div>
+        </div>
+
+        {!toggle && (
+          <div className="ipSection">
+            <h3>Setting</h3>
+            <div>
+              {specifics.map((specific, index) => (
+                <button
+                  className="tab"
+                  style={{
+                    borderRadius:
+                      index === 0
+                        ? "4px 0 0 4px"
+                        : index === specifics.length - 1
+                        ? "0 4px 4px 0"
+                        : "",
+                    ...(setting.includes(specific) ? divStyle : {}),
+                  }}
+                  onClick={() => {
+                    setSetting(specific);
+                  }}
+                >
+                  {specific}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
       </div>
+      <button onClick={handleSubmit}>Send</button>
       {films.map((film) => (
         <Card film={film} />
       ))}
