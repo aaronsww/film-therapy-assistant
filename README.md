@@ -1,8 +1,8 @@
-#Film Therapy Assisant
+# Film Therapy Assisant
 
 This project is a personalized movie recommendation system that utilizes OpenAI's GPT-3 model to provide users with empathetic and emotionally relevant movie recommendations. The system takes into account the user's emotional state and generates movie suggestions that can help them cope with their emotions.
 
-##Features
+## Features
 Personalized movie recommendations based on user input
 Integration with OpenAI's GPT-3 model for generating movie suggestions
 Simple and user-friendly UI for inputting prompts
@@ -11,15 +11,15 @@ RESTful service built using Node.js and Express for fetching additional movie de
 React.js front-end library for rendering movie details on the UI
 MERN stack architecture for seamless interaction between components
 
-##Functionality
+## Functionality
 The user can input a prompt related to their emotional state, such as "I feel anxious" or "I'm feeling lonely." The system uses OpenAI's GPT-3 model to generate a list of movie titles that are emotionally relevant to the user's prompt. The movie titles are stored in MongoDB as an array.
 
 The front-end UI fetches the movie titles from MongoDB and sends them to a RESTful service built using Node.js and Express. This service interacts with the OMDb API to fetch additional details about the movies, such as posters, year of release, directors, and more. The response from the RESTful service is then rendered on the UI using React.js.
 
 The personalized movie recommendation system provides users with a curated selection of movies that can help them cope with their emotions. The system goes beyond generic movie recommendations and takes into account the user's emotional state to provide empathetic and emotionally relevant movie suggestions.
 
-##Future Plans
+## Future Plans
 In the future, we plan to add authentication to the system and create a chrome extension for quick accessibility. The model will be fine-tuned to a single user's needs, providing even more personalized and empathetic movie recommendations.
 
-##Conclusion
+## Conclusion
 The personalized movie recommendation system is a powerful tool for individuals struggling with mental health issues. By utilizing OpenAI's GPT-3 model and a user-friendly UI, the system provides empathetic and emotionally relevant movie recommendations that can help users cope with their emotions. The MERN stack architecture ensures seamless interaction between components and enables future expansion of the system's functionality.
