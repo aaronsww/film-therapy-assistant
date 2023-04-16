@@ -17,11 +17,12 @@ function App() {
   const specifics = ["neon", "moody", "noir", "neutral", "vibrant"];
 
   const handleSubmit = async (event) => {
+    console.log("setting:", setting);
     event.preventDefault();
-    console.log(story);
     setFilms([]);
-    if (toggle) {
+    if (!toggle) {
       try {
+        console.log(setting);
         const response = await axios.post(
           "http://localhost:5000/api/recommend",
           {
@@ -36,6 +37,7 @@ function App() {
           ...response.data.map((data) => data.title),
         ]);
         setMood("");
+        // setSetting("");
       } catch (error) {
         console.error(error);
       }
@@ -143,20 +145,18 @@ function App() {
                           : "",
                       ...(setting.includes(specific) ? divStyle : {}),
                     }}
-                    onClick={() => {
-                      setSetting(specific);
-                    }}
+                    onClick={() => setSetting(specific)}
                   >
                     {specific}
                   </button>
                 ))}
               </div>
-              <button className="submitBtn" onClick={handleSubmit}>
-                Send
-              </button>
             </div>
           </div>
         )}
+        <button className="submitBtn" onClick={handleSubmit}>
+          Send
+        </button>
       </div>
       {films.map((film) => (
         <Card film={film} />
