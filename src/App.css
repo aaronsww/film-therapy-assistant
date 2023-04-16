@@ -44,11 +44,13 @@
 .quoteMark{
   font-size: 44px;
   font-family: 'Coustard', serif;
+  color: #ddf0ff;
 }
 .quote>div{
   font-size: 44px;
   font-family: 'Playfair Display', serif;
   margin-top: -5%;
+  color: #ddf0ff;
 }
 .quote>p{
   font-size: 22px;
@@ -56,6 +58,7 @@
   margin-left: 70%;
   margin-top: -0.2%;
   font-style: italic;
+  color: #ddf0ff;
 }
 
 .heart{
@@ -72,7 +75,7 @@
 .storyIp{
   padding: 8px;
   font-size: 16px;
-  margin: 5%;
+  width: 60vw;
 }
 .ipSection{
   display: flex;
@@ -95,10 +98,18 @@
   font-size: 20px;
   color: #6c757d;
 }
+.tell{
+  color: #61dafbaa;
+}
+.tell:hover{
+  cursor: pointer;
+  color: #f8f9fa;
+}
 .submitBtn{
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 1px;
   background-color: #61dafbaa;
   padding:  10px 25px 10px 25px;
+  margin: 3%;
 }

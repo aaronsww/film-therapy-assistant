@@ -13,53 +13,69 @@ function App() {
   const [films, setFilms] = useState([]);
   const [showForm, setShowForm] = useState();
 
-  const emotions = ["euphoria", "serenity", "homesick", "nostalgia", "hype"];
-  const serious = ["depression", "anxiety", "grief", "lonely"];
-  const specifics = ["neon", "moody", "noir", "neutral", "vibrant"];
+  const emotions = [
+    "euphoria",
+    "serenity",
+    "homesick",
+    "nostalgia",
+    "adrenaline",
+  ];
+  const serious = ["gloom", "anxiety", "grief", "lonely", "insomnia"];
+  const specifics = [
+    "neon",
+    "earthy",
+    "noir",
+    "vintage",
+    "muted tones",
+    "vibrant",
+  ];
 
   const handleSubmit = async (event) => {
     console.log("setting:", setting);
     event.preventDefault();
     setFilms([]);
-    if (!toggle) {
-      try {
-        console.log(setting);
-        const response = await axios.post(
-          "http://localhost:5000/api/recommend",
-          {
-            story,
-            mood,
-            setting,
-          }
-        );
-        console.log(response);
-        setFilms((prevFilms) => [
-          ...prevFilms,
-          ...response.data.map((data) => data.title),
-        ]);
-        setMood("");
-        // setSetting("");
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      try {
-        const response = await axios.post(
-          "http://localhost:5000/api/recommend/help",
-          {
-            story,
-            mood,
-          }
-        );
-        console.log(response);
-        setFilms((prevFilms) => [
-          ...prevFilms,
-          ...response.data.map((data) => data.title),
-        ]);
-        setMood("");
-        setShowForm(false);
-      } catch (error) {
-        console.error(error);
+    if (!mood && !setting && !story) alert("Please select an attribute.");
+    else {
+      if (!toggle) {
+        try {
+          console.log(setting);
+          const response = await axios.post(
+            "http://localhost:5000/api/recommend",
+            {
+              story,
+              mood,
+              setting,
+            }
+          );
+          console.log(response);
+          setFilms((prevFilms) => [
+            ...prevFilms,
+            ...response.data.map((data) => data.title),
+          ]);
+          setMood("");
+          // setSetting("");
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        try {
+          const response = await axios.post(
+            "http://localhost:5000/api/recommend/help",
+            {
+              story,
+              mood,
+            }
+          );
+          console.log(response);
+          setFilms((prevFilms) => [
+            ...prevFilms,
+            ...response.data.map((data) => data.title),
+          ]);
+          setMood("");
+          setShowForm(false);
+        } catch (error) {
+          console.error(error);
+        }
       }
     }
   };
@@ -94,7 +110,7 @@ function App() {
       </div>
       <div>
         <div className="ipSection">
-          <h3>Emotion(s)</h3>
+          <h3>Emotion[s]</h3>
           <div>
             {toggle &&
               serious.map((ser, index) => (
@@ -120,13 +136,15 @@ function App() {
               ))}
           </div>
           {toggle && (
-            <h3 onClick={() => setShowForm(true)}>Tell us your story</h3>
+            <h3 className="tell" onClick={() => setShowForm(true)}>
+              Tell us your story →
+            </h3>
           )}
-          {showForm && (
+          {toggle && showForm && (
             <form action="submit">
               <textarea
                 className="storyIp"
-                placeholder="How are you feeling?"
+                placeholder="Eg: My girlfriend dumped me, my dog passed away, etc."
                 type="text"
                 value={story}
                 onChange={(e) => setStory(e.target.value)}
@@ -138,7 +156,7 @@ function App() {
         {!toggle && (
           <div>
             <div className="ipSection">
-              <h3>Setting</h3>
+              <h3>Color Palette</h3>
               <div className="layout">
                 <div>
                   {specifics.map((specific, index) => (
