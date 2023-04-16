@@ -62,12 +62,12 @@
   display: flex;
   justify-content: center;
 }
-.heart>div{
+/* .heart>div{
   font-size: 11px;
   transform: rotate(-30deg); 
-  margin-right: -40px;
+  margin-right: -20px;
   color: #61dafbaa;
-}
+} */
 
 .storyIp{
   padding: 8px;

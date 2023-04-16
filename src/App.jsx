@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import Card from "../components/Card";
+import CustomButton from "../components/CustomButton";
 import { HeartSwitch } from "@anatoliygatt/heart-switch";
 
 function App() {
@@ -73,7 +74,7 @@ function App() {
         <p>- Nadine Labaki</p>
       </div>
       <div className="heart">
-        <div>Feeling down? Click me!</div>
+        {/* <div>Feeling down?</div> */}
         <HeartSwitch
           size="md"
           inactiveTrackFillColor="#cffafe"
@@ -100,48 +101,30 @@ function App() {
       <div>
         <div className="ipSection">
           <h3>Emotion(s)</h3>
-          {toggle && (
-            <div>
-              {serious.map((ser, index) => (
-                <button
-                  className="tab"
-                  style={{
-                    borderRadius:
-                      index === 0
-                        ? "4px 0 0 4px"
-                        : index === serious.length - 1
-                        ? "0 4px 4px 0"
-                        : "",
-                    ...(mood.includes(ser) ? divStyle : {}),
-                  }}
-                  onClick={() => setMood(mood + "," + ser)}
-                >
-                  {ser}
-                </button>
+          <div>
+            {toggle &&
+              serious.map((ser, index) => (
+                <CustomButton
+                  dataSet={serious}
+                  data={ser}
+                  index={index}
+                  mood={mood}
+                  setMood={setMood}
+                />
               ))}
-            </div>
-          )}
-          {!toggle && (
-            <div>
-              {emotions.map((emotion, index) => (
-                <button
-                  className="tab"
-                  style={{
-                    borderRadius:
-                      index === 0
-                        ? "4px 0 0 4px"
-                        : index === emotions.length - 1
-                        ? "0 4px 4px 0"
-                        : "",
-                    ...(mood.includes(emotion) ? divStyle : {}),
-                  }}
-                  onClick={() => setMood(mood + "," + emotion)}
-                >
-                  {emotion}
-                </button>
+          </div>
+          <div>
+            {!toggle &&
+              emotions.map((emotion, index) => (
+                <CustomButton
+                  dataSet={emotions}
+                  data={emotion}
+                  index={index}
+                  mood={mood}
+                  setMood={setMood}
+                />
               ))}
-            </div>
-          )}
+          </div>
         </div>
         {!toggle && (
           <div className="ipSection">
@@ -183,3 +166,50 @@ function App() {
 }
 
 export default App;
+
+{
+  /* {toggle && (
+            <div>
+              {serious.map((ser, index) => (
+                <button
+                  className="tab"
+                  style={{
+                    borderRadius:
+                      index === 0
+                        ? "4px 0 0 4px"
+                        : index === serious.length - 1
+                        ? "0 4px 4px 0"
+                        : "",
+                    ...(mood.includes(ser) ? divStyle : {}),
+                  }}
+                  onClick={() => setMood(mood + "," + ser)}
+                >
+                  {ser}
+                </button>
+              ))}
+            </div>
+          )} */
+}
+{
+  /* {!toggle && (
+            <div>
+              {emotions.map((emotion, index) => (
+                <button
+                  className="tab"
+                  style={{
+                    borderRadius:
+                      index === 0
+                        ? "4px 0 0 4px"
+                        : index === emotions.length - 1
+                        ? "0 4px 4px 0"
+                        : "",
+                    ...(mood.includes(emotion) ? divStyle : {}),
+                  }}
+                  onClick={() => setMood(mood + "," + emotion)}
+                >
+                  {emotion}
+                </button>
+              ))}
+            </div>
+          )} */
+}
