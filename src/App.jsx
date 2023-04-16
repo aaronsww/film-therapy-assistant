@@ -73,6 +73,7 @@ function App() {
         <p>- Nadine Labaki</p>
       </div>
       <div className="heart">
+        <div>Feeling down? Click me!</div>
         <HeartSwitch
           size="md"
           inactiveTrackFillColor="#cffafe"
