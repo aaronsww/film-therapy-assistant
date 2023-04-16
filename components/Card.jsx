@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "../src/App.css";
 
 function Card({ film }) {
   const [rec, setRec] = useState({});
@@ -17,12 +18,14 @@ function Card({ film }) {
   }, []);
 
   return (
-    <div>
-      <h3>{rec.Title}</h3>
-      <p>{rec.Year}</p>
-      <h4>Directed by: {rec.Director}</h4>
-      <p>{rec.Plot}</p>
-      <img src={rec.Poster} alt="" />
+    <div className="card">
+      <img className="poster" src={rec.Poster} alt="" />
+      <div>
+      <div className="year">{rec.Year}</div>
+        <div className="name">{rec.Title}</div>
+        <div className="dir">Dir. {rec.Director}</div>
+        <div className="plot">{rec.Plot}</div>
+      </div>
     </div>
   );
 }

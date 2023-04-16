@@ -113,3 +113,34 @@
   padding:  10px 25px 10px 25px;
   margin: 3%;
 }
+.card{
+  display: flex;
+  text-align: start;
+  align-items: center;
+  border: 0.5px solid grey;
+  margin-bottom: 30px;
+  border-radius: 10px;
+}
+ .poster{
+  height: 40vh;
+  background: white; 
+  box-shadow: 0 0px 10px  white; 
+  ; 
+ }
+ .year{
+  font-size: 20px;
+  letter-spacing: 3px;
+  margin-left: 20px;
+ }
+ .name{
+  font-size: 34px;
+  font-weight: 700;
+  margin-left: 20px;
+ }
+ .dir{
+  font-size: 15px;
+  margin-left: 20px;
+ }
+ .plot{
+  margin: 20px;
+ }
