@@ -11,9 +11,9 @@ function App() {
   const [setting, setSetting] = useState("");
   const [films, setFilms] = useState([]);
 
-  const emotions = ["lonely", "serenity", "grief"];
-  const serious = ["depression", "anxiety", "grief"];
-  const specifics = ["neon", "moody", "noir"];
+  const emotions = ["euphoria", "serenity", "homesick", "nostalgia", "hype"];
+  const serious = ["depression", "anxiety", "grief", "lonely"];
+  const specifics = ["neon", "moody", "noir", "neutral", "vibrant"];
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -86,7 +86,7 @@ function App() {
           }}
         />
       </div>
-      <form action="submit">
+      {/* <form action="submit">
         <textarea
           className="storyIp"
           // placeholder="How are you feeling?"
@@ -95,7 +95,7 @@ function App() {
           onChange={(e) => setStory(e.target.value)}
           required
         />
-      </form>
+      </form> */}
       <div>
         <div className="ipSection">
           <h3>Emotion(s)</h3>
@@ -145,31 +145,35 @@ function App() {
         {!toggle && (
           <div className="ipSection">
             <h3>Setting</h3>
-            <div>
-              {specifics.map((specific, index) => (
-                <button
-                  className="tab"
-                  style={{
-                    borderRadius:
-                      index === 0
-                        ? "4px 0 0 4px"
-                        : index === specifics.length - 1
-                        ? "0 4px 4px 0"
-                        : "",
-                    ...(setting.includes(specific) ? divStyle : {}),
-                  }}
-                  onClick={() => {
-                    setSetting(specific);
-                  }}
-                >
-                  {specific}
-                </button>
-              ))}
+            <div className="layout">
+              <div>
+                {specifics.map((specific, index) => (
+                  <button
+                    className="tab"
+                    style={{
+                      borderRadius:
+                        index === 0
+                          ? "4px 0 0 4px"
+                          : index === specifics.length - 1
+                          ? "0 4px 4px 0"
+                          : "",
+                      ...(setting.includes(specific) ? divStyle : {}),
+                    }}
+                    onClick={() => {
+                      setSetting(specific);
+                    }}
+                  >
+                    {specific}
+                  </button>
+                ))}
+              </div>
+              <button className="submitBtn" onClick={handleSubmit}>
+                Send
+              </button>
             </div>
           </div>
         )}
       </div>
-      <button onClick={handleSubmit}>Send</button>
       {films.map((film) => (
         <Card film={film} />
       ))}
