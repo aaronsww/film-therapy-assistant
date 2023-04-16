@@ -11,6 +11,7 @@ function App() {
   const [mood, setMood] = useState("");
   const [setting, setSetting] = useState("");
   const [films, setFilms] = useState([]);
+  const [showForm, setShowForm] = useState();
 
   const emotions = ["euphoria", "serenity", "homesick", "nostalgia", "hype"];
   const serious = ["depression", "anxiety", "grief", "lonely"];
@@ -56,6 +57,7 @@ function App() {
           ...response.data.map((data) => data.title),
         ]);
         setMood("");
+        setShowForm(false);
       } catch (error) {
         console.error(error);
       }
@@ -90,16 +92,6 @@ function App() {
           }}
         />
       </div>
-      {/* <form action="submit">
-        <textarea
-          className="storyIp"
-          // placeholder="How are you feeling?"
-          type="text"
-          value={story}
-          onChange={(e) => setStory(e.target.value)}
-          required
-        />
-      </form> */}
       <div>
         <div className="ipSection">
           <h3>Emotion(s)</h3>
@@ -127,29 +119,46 @@ function App() {
                 />
               ))}
           </div>
+          {toggle && (
+            <h3 onClick={() => setShowForm(true)}>Tell us your story</h3>
+          )}
+          {showForm && (
+            <form action="submit">
+              <textarea
+                className="storyIp"
+                placeholder="How are you feeling?"
+                type="text"
+                value={story}
+                onChange={(e) => setStory(e.target.value)}
+                required
+              />
+            </form>
+          )}
         </div>
         {!toggle && (
-          <div className="ipSection">
-            <h3>Setting</h3>
-            <div className="layout">
-              <div>
-                {specifics.map((specific, index) => (
-                  <button
-                    className="tab"
-                    style={{
-                      borderRadius:
-                        index === 0
-                          ? "4px 0 0 4px"
-                          : index === specifics.length - 1
-                          ? "0 4px 4px 0"
-                          : "",
-                      ...(setting.includes(specific) ? divStyle : {}),
-                    }}
-                    onClick={() => setSetting(specific)}
-                  >
-                    {specific}
-                  </button>
-                ))}
+          <div>
+            <div className="ipSection">
+              <h3>Setting</h3>
+              <div className="layout">
+                <div>
+                  {specifics.map((specific, index) => (
+                    <button
+                      className="tab"
+                      style={{
+                        borderRadius:
+                          index === 0
+                            ? "4px 0 0 4px"
+                            : index === specifics.length - 1
+                            ? "0 4px 4px 0"
+                            : "",
+                        ...(setting.includes(specific) ? divStyle : {}),
+                      }}
+                      onClick={() => setSetting(specific)}
+                    >
+                      {specific}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -166,50 +175,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* {toggle && (
-            <div>
-              {serious.map((ser, index) => (
-                <button
-                  className="tab"
-                  style={{
-                    borderRadius:
-                      index === 0
-                        ? "4px 0 0 4px"
-                        : index === serious.length - 1
-                        ? "0 4px 4px 0"
-                        : "",
-                    ...(mood.includes(ser) ? divStyle : {}),
-                  }}
-                  onClick={() => setMood(mood + "," + ser)}
-                >
-                  {ser}
-                </button>
-              ))}
-            </div>
-          )} */
-}
-{
-  /* {!toggle && (
-            <div>
-              {emotions.map((emotion, index) => (
-                <button
-                  className="tab"
-                  style={{
-                    borderRadius:
-                      index === 0
-                        ? "4px 0 0 4px"
-                        : index === emotions.length - 1
-                        ? "0 4px 4px 0"
-                        : "",
-                    ...(mood.includes(emotion) ? divStyle : {}),
-                  }}
-                  onClick={() => setMood(mood + "," + emotion)}
-                >
-                  {emotion}
-                </button>
-              ))}
-            </div>
-          )} */
-}
