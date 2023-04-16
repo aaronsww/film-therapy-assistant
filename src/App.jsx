@@ -26,7 +26,7 @@ function App() {
     "earthy",
     "noir",
     "vintage",
-    "muted tones",
+    "neutral tones",
     "vibrant",
   ];
 
@@ -53,7 +53,6 @@ function App() {
             ...response.data.map((data) => data.title),
           ]);
           setMood("");
-          // setSetting("");
         } catch (error) {
           console.error(error);
         }
@@ -94,7 +93,6 @@ function App() {
         <p>- Nadine Labaki</p>
       </div>
       <div className="heart">
-        {/* <div>Feeling down?</div> */}
         <HeartSwitch
           size="md"
           inactiveTrackFillColor="#cffafe"

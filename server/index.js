@@ -28,23 +28,19 @@ const movieSchema = new mongoose.Schema({
 const Movie = mongoose.model("Movie", movieSchema);
 
 app.post("/api/recommend", async (req, res) => {
-  console.log("Received POST request");
-  const { story } = req.body;
+  console.log("Received POST request", req.body);
   const { mood } = req.body;
   const { setting } = req.body;
 
   let prompt = "";
 
-  if (story)
-    prompt = `Recommend me 5 films based on this personal story: ${story}. Reply with just the film titles seperated by a comma and nothing else.`;
-  else if (mood && setting) {
-    prompt = `I feel ${mood}. Recommend me 5 films with a ${setting} setting. Reply with just the film titles seperated by a comma.`;
-    console.log("it worked");
+  if (mood && setting) {
+    prompt = `I feel ${mood}. Recommend me 5 films with a ${setting}  color palette centered around ${mood}. Reply with just the film titles seperated by a comma.`;
   } else if (mood) {
-    prompt = `I feel ${mood}. Recommend me 5 films. Reply with just the film titles seperated by a comma.`;
-    console.log("hye", mood);
-  } else if (setting)
-    prompt = `Recommend me 5 films with a ${setting} setting. Reply with just the film titles seperated by a comma.`;
+    prompt = `I feel ${mood}. Recommend me 5 films centered around ${mood}. Reply with just the film titles seperated by a comma.`;
+  } else if (setting) {
+    prompt = `Recommend me 5 films with a ${setting} color palette. Reply with just the film titles seperated by a comma.`;
+  }
   try {
     await openai
       .createChatCompletion({
@@ -57,7 +53,6 @@ app.post("/api/recommend", async (req, res) => {
         ],
       })
       .then(async (rez) => {
-        // console.log(rez.data.choices[0].message.content);
         const response = rez.data.choices[0].message.content.split(", ");
         await Movie.deleteMany({});
         const savedRecommendations = await Movie.create(
@@ -79,9 +74,9 @@ app.post("/api/recommend/help", async (req, res) => {
   let prompt = "";
 
   if (story)
-    prompt = `Recommend me 5 films based on this personal experience of mine: ${story}. Reply with just the film titles seperated by a comma and nothing else.`;
+    prompt = `Recommend me 5 films that are relatale based on this personal story: ${story}. Reply with just the film titles seperated by a comma and nothing else.No bullet points in reply.`;
   else if (mood) {
-    prompt = `I feel ${mood}. Recommend me 5 films that help me cope with being ${mood}. Reply with just the film titles seperated by a comma.`;
+    prompt = `I feel ${mood}. Recommend me 5 films that will help me cope with being ${mood}. Reply with just the film titles seperated by a comma.`;
     console.log("Moods:", mood);
   }
   try {
@@ -96,7 +91,6 @@ app.post("/api/recommend/help", async (req, res) => {
         ],
       })
       .then(async (rez) => {
-        // console.log(rez.data.choices[0].message.content);
         const response = rez.data.choices[0].message.content.split(", ");
         await Movie.deleteMany({});
         const savedRecommendations = await Movie.create(
