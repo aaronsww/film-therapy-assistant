@@ -2,7 +2,7 @@
 
 This project is a personalized movie recommendation system that utilizes OpenAI's GPT-3 model to provide users with empathetic and emotionally relevant movie recommendations. The system takes into account the user's emotional state and generates movie suggestions that can help them cope with their emotions.
 
-### Note: This project was built during a 36 hour hackatathon and hasn't been depoloyed yet.
+### Note: This project was built during a 36 hour hackathon and hasn't been depoloyed yet.
 
 ## Features
 
